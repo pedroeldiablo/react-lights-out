@@ -46,6 +46,14 @@ class Board extends Component {
       hasWon: false, 
       board: this.createBoard()
     };
+    this.reset = this.reset.bind(this);
+  }
+
+  reset() {
+    this.setState({
+      hasWon: false, 
+      board: this.createBoard()
+    });
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -95,15 +103,29 @@ class Board extends Component {
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
-    let hasWon = false;
+    let hasWon = board.every(row => row.every(cell => !cell));
 
     this.setState({board, hasWon});
   }
+
+  
 
 
   /** Render game board or winning message. */
 
   render() {
+    if(this.state.hasWon) {
+      return (
+        <div>
+          <h1>
+            YOU WON!!!
+          </h1>
+          <button id='reset' onClick={this.reset}>
+            Play Again?
+          </button>
+        </div>
+      )
+    }
     const tableBoard = [];
     for (let y = 0; y < this.props.nrows; y++ ) {
       let row  = [];
@@ -125,6 +147,10 @@ class Board extends Component {
             {tableBoard}
         </tbody>
       </table>
+      <button id='reset' onClick={this.reset}>
+                  Restart?
+      </button>
+     
       </div>
     )
   }
