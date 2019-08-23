@@ -141,7 +141,7 @@ class Board extends Component {
 
     return (
       <div>
-      <h1>LightsOut</h1>
+      <h1>Lights Out</h1>
       <table className="Board">
         <tbody>
             {tableBoard}
